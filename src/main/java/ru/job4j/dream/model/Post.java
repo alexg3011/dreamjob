@@ -1,6 +1,5 @@
 package ru.job4j.dream.model;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Post {
