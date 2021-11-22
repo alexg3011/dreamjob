@@ -10,14 +10,14 @@ public class MainStore {
         for (Post post : store.findAllPosts()) {
             System.out.println(post.getId() + " " + post.getName());
         }
-        Post post = store.findPostById(0);
+        Post post = store.findPostById(1);
         System.out.println(post.toString());
         store.saveCandidate(new Candidate(0, "Alex"));
         for (Candidate candidate : store.findAllCandidates()) {
             System.out.println(candidate.toString());
         }
-        System.out.println(store.findCandidateById(0).toString());
-        store.deleteCandidate(0);
-        store.deletePost(0);
+        System.out.println(store.findCandidateById(1).toString());
+        store.deleteCandidate(1);
+        store.deletePost(1);
     }
 }

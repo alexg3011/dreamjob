@@ -1,12 +1,12 @@
 <%@ page import="ru.job4j.dream.model.Post" %>
-<%@ page import="ru.job4j.dream.store.MemStore" %>
+<%@ page import="ru.job4j.dream.store.DbStore" %>
 <body>
 <%@page contentType="text/html; charset=UTF-8" %>
 <%
     String id = request.getParameter("id");
     Post post = new Post(0, "");
     if (id != null) {
-        post = MemStore.instOf().findById(Integer.valueOf(id));
+        post = DbStore.instOf().findPostById(Integer.valueOf(id));
     }
 %>
 <div class="container pt-3">
