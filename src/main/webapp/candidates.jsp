@@ -1,10 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
   <!-- Required meta tags -->
-  <%@page contentType="text/html; charset=UTF-8" %>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
@@ -31,7 +31,9 @@
         <table class="table">
           <thead>
           <tr>
-            <th scope="col">Имя</th>
+            <th scope="col">Названия</th>
+            <th scope="col">Фото</th>
+            <th scope="col">Действие</th>
           </tr>
           </thead>
           <tbody>
@@ -42,6 +44,17 @@
                   <i class="fa fa-edit mr-3"></i>
                 </a>
                 <c:out value="${candidate.name}"/>
+              </td>
+              <td>
+                <img src="<c:url value='/download?id=${candidate.id}'/>" alt = "Фото не добавлено!" width="100px" height="100px"/>
+              </td>
+              <td>
+                <form action="<c:url value='/upload?id=${candidate.id}'/>" method="post" enctype="multipart/form-data">
+                  <button type="submit" class="btn btn-default">Добавить фото</button>
+                </form>
+                <form action="<c:url value='/delete?id=${candidate.id}'/>" method="post" enctype="multipart/form-data">
+                  <button type="submit" class="btn btn-default">Удалить кандидата</button>
+                </form>
               </td>
             </tr>
           </c:forEach>
