@@ -1,6 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<!doctype html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -16,40 +16,48 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <title>Работа мечты</title>
+    <title>Регистрация</title>
 </head>
 <body>
 <div class="container pt-3">
-
     <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
+            </li>
+        </ul>
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Авторизация
+                Новый пользователь
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/auth.do" method="post">
+                <form action="<%=request.getContextPath()%>/reg.do" method="post">
+                    <div class="form-group">
+                        <label>Имя</label>
+                        <input type="text" class="form-control" name="name" placeholder="Введите имя">
+                    </div>
                     <div class="form-group">
                         <label>Почта</label>
-                        <input type="text" class="form-control" name="email">
+                        <input type="text" class="form-control" name="email" placeholder="Введите email">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input type="text" class="form-control" name="password">
+                        <input type="password" class="form-control" name="password" placeholder="Введите пароль">
                     </div>
-                    <button type="submit" class="btn btn-primary">Войти</button>
-                    <c:if test="${not empty error}">
-                        <div style="color:red; font-weight: bold; margin: 30px 0;">
-                                ${error}
+                    <button type="submit" class="btn btn-primary">Создать</button>
+                    <div class="container">
+                        <div class="row">
+                            <%  String error = (String) request.getAttribute("error");
+                                if (error != null) { %>
+                            <div style="color:red; font-weight: bold; margin: 30px 0;">
+                                <%=error%>
+                            </div>
+                            <% } %>
                         </div>
-                    </c:if>
+                    </div>
                 </form>
             </div>
         </div>
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/reg.do">Регистрация</a>
-            </li>
-        </ul>
     </div>
 </div>
 </body>

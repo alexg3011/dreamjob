@@ -238,16 +238,51 @@ public class DbStore implements Store {
 
     @Override
     public void saveUser(User user) {
-
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO user(name, email, password) VALUES (?, ?, ?)",
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    user.setId(id.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            log.error("Ошибка БД", e);
+        }
     }
 
     @Override
     public void removeUser(User user) {
-
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("DELETE FROM user WHERE id = ?")
+        ) {
+            ps.setInt(1, user.getId());
+            ps.execute();
+        } catch (Exception e) {
+            log.error("Ошибка БД", e);
+        }
     }
 
     @Override
     public User findUserByEmail(String email) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM user WHERE email = ?")
+        ) {
+            ps.setString(1, email);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    return new User(it.getInt("id"), it.getString("name"),
+                            it.getString("email"), it.getString("password"));
+                }
+            }
+        } catch (Exception e) {
+            log.error("Ошибка БД", e);
+        }
         return null;
     }
 

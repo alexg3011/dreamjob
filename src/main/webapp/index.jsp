@@ -46,6 +46,11 @@
                     <a class="nav-link" href="<%=request.getContextPath()%>/logout.do">Выйти</a>
                 </li>
             </c:if>
+            <c:if test="${user == null}">
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/reg.do">Регистрация</a>
+                </li>
+            </c:if>
         </ul>
     </div>
     <div class="row">
