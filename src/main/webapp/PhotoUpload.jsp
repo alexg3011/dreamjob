@@ -11,6 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<h2 align="center"><c:out value="Привет, ${user.name}"/></h2>
 <table class="table">
     <thead>
     <tr>
