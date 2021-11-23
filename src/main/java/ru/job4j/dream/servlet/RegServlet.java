@@ -24,6 +24,7 @@ public class RegServlet extends HttpServlet {
         User user = new User(0, name, email, password);
         if (DbStore.instOf().findUserByEmail(email) == null) {
             DbStore.instOf().saveUser(user);
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
         } else {
             req.setAttribute("error", "Такой пользователь уже существует");
             req.getRequestDispatcher("reg.jsp").forward(req, resp);
