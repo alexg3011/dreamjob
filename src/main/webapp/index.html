@@ -8,20 +8,32 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
+        let count = 3;
         function validate() {
             if ($('#name').val() === '') {
                 alert('Имя не заполнено!');
                 return false;
-            } else
-            if ($('#secondname').val() === '') {
+            } else if ($('#secondname').val() === '') {
                 alert('Фамилия не заполнена!');
                 return false;
-            } else
-            if ($('#description').val() === '') {
+            } else if ($('#description').val() === '') {
                 alert('Описание не заполнено!');
                 return false;
             }
             return true;
+        }
+        function addRow() {
+            if(validate()) {
+                const name = $('#name').val();
+                const secondname = $('#secondname').val();
+                const sex = $('#sex').val();
+                const description = $('#description').val();
+                $('#user tr:last').after('<tr><th scope="row">' + count++ + '</th>'
+                    + '<td>' + name + '</td>'
+                    + '<td>' + secondname + '</td>'
+                    + '<td>' + sex + '</td>'
+                    + '<td>' + description + '</td></tr>');
+            }
         }
     </script>
 </head>
@@ -45,11 +57,11 @@
     <div class="form-group">
         <label for="description">Описание</label>
         <textarea class="form-control" id="description" rows="3"></textarea>
-        <button type="button" class="btn btn-light" onclick="return validate();" >Сохранить</button>
+        <button type="reset" class="btn btn-default" onclick="addRow();">Сохранить</button>
     </div>
 
     <div class="row pt-3">
-        <table class="table">
+        <table class="table" id="user">
             <thead>
             <tr>
                 <th scope="col">#</th>
