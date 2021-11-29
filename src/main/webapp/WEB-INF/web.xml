@@ -7,6 +7,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <display-name>Archetype Created Web Application</display-name>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
     <servlet>
         <servlet-name>PostServlet</servlet-name>
         <servlet-class>ru.job4j.dream.servlet.PostServlet</servlet-class>
@@ -62,6 +65,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>DeleteCandidateServlet</servlet-name>
+        <servlet-class>ru.job4j.dream.servlet.DeleteCandidateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteCandidateServlet</servlet-name>
+        <url-pattern>/delete-candidate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeletePostServlet</servlet-name>
+        <servlet-class>ru.job4j.dream.servlet.DeletePostServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeletePostServlet</servlet-name>
+        <url-pattern>/delete-post</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>AuthServlet</servlet-name>
         <servlet-class>ru.job4j.dream.servlet.AuthServlet</servlet-class>
     </servlet>
@@ -98,11 +119,19 @@
         <url-pattern>/greet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CityServlet</servlet-name>
+        <servlet-class>ru.job4j.dream.servlet.CityServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CityServlet</servlet-name>
+        <url-pattern>/city</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>AuthFilter</filter-name>
         <filter-class>ru.job4j.dream.filter.AuthFilter</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
         <url-pattern>*.do</url-pattern>

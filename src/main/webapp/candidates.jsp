@@ -27,7 +27,8 @@
         <table class="table">
           <thead>
           <tr>
-            <th scope="col">Названия</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Город</th>
             <th scope="col">Фото</th>
             <th scope="col">Действие</th>
           </tr>
@@ -42,6 +43,9 @@
                 <c:out value="${candidate.name}"/>
               </td>
               <td>
+                <c:out value="${candidate.city.name}"/>
+              </td>
+              <td>
                 <img src="<c:url value='/download?id=${candidate.id}'/>" alt = "Фото не добавлено!" width="100px" height="100px"/>
               </td>
               <td>
@@ -49,6 +53,9 @@
                   <button type="submit" class="btn btn-default">Добавить фото</button>
                 </form>
                 <form action="<c:url value='/delete?id=${candidate.id}'/>" method="post" enctype="multipart/form-data">
+                  <button type="submit" class="btn btn-default">Удалить фото</button>
+                </form>
+                <form action="<c:url value='/delete-candidate?id=${candidate.id}'/>" method="post" enctype="multipart/form-data">
                   <button type="submit" class="btn btn-default">Удалить кандидата</button>
                 </form>
               </td>
@@ -56,9 +63,12 @@
           </c:forEach>
           </tbody>
         </table>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/index.jsp">На главную</a>
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
-</div>
 </body>
 </html>

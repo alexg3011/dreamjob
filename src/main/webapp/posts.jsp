@@ -27,7 +27,8 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Названия</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">Описание</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,13 +40,24 @@
                                 </a>
                                 <c:out value="${post.name}"/>
                             </td>
+                            <td>
+                                <c:out value="${post.description}"/>
+                            </td>
+                           <td> <form action="<c:url value='/delete-post?id=${post.id}'/>" method="post" enctype="multipart/form-data">
+                                <button type="submit" class="btn btn-default">Удалить пост</button>
+                           </td>
+                        </form>
                         </tr>
+
                     </c:forEach>
                     </tbody>
                 </table>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/index.jsp">На главную</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
-</div>
 </body>
 </html>

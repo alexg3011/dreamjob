@@ -1,15 +1,37 @@
 package ru.job4j.dream.model;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Date;
 import java.util.Objects;
 
 public class Post {
 
     private int id;
     private String name;
+    private String description;
+    private Timestamp create;
+
+    public Post() {
+        this.create = Timestamp.from(Instant.now());
+    }
 
     public Post(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Post(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    public Post(int id, String name, String description, Timestamp create) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.create = create;
     }
 
     public int getId() {
@@ -26,6 +48,22 @@ public class Post {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Timestamp getCreate() {
+        return create;
+    }
+
+    public void setCreate(Timestamp create) {
+        this.create = create;
     }
 
     @Override
@@ -50,6 +88,8 @@ public class Post {
         return "Post{"
                 + "id=" + id
                 + ", name='" + name + '\''
+                + ", description='" + description + '\''
+                + ", create=" + create
                 + '}';
     }
 }

@@ -1,5 +1,7 @@
 package ru.job4j.dream.servlet;
 
+import org.apache.commons.io.FilenameUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,18 +13,21 @@ import java.io.IOException;
 public class DownloadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("id");
+        String candidateId = req.getParameter("id");
         File downloadFile = null;
         for (File file : new File("c:\\images\\").listFiles()) {
-            if (name.equals(file.getName())) {
+            String fileName = FilenameUtils.getBaseName(file.getName());
+            if (candidateId.equals(fileName)) {
                 downloadFile = file;
                 break;
             }
         }
-        try (FileInputStream stream = new FileInputStream(downloadFile)) {
-            resp.getOutputStream().write(stream.readAllBytes());
-            resp.setContentType("image/png");
+        resp.setContentType("application/octet-stream");
+        if (downloadFile != null) {
             resp.setHeader("Content-Disposition", "attachment; filename=\"" + downloadFile.getName() + "\"");
+            try (FileInputStream stream = new FileInputStream(downloadFile)) {
+                resp.getOutputStream().write(stream.readAllBytes());
+            }
         }
     }
 }

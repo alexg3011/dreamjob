@@ -1,3 +1,6 @@
+<%@ page import="ru.job4j.dream.store.DbStore" %>
+<%@ page import="ru.job4j.dream.model.Post" %>
+<%@ page import="ru.job4j.dream.model.Candidate" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
@@ -56,18 +59,51 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Сегодняшние вакансии.
+                Вакансии сегодня:
             </div>
             <div class="card-body">
+                <table class="table">
+                    <tbody>
+                    <thead>
+                    <tr>
+                        <th scope="col">Название</th>
+                        <th scope="col">Описание</th>
+                    </tr>
+                    </thead>
+                    <% for (Post post : DbStore.instOf().findAllTodayPosts()) { %>
+                    <tr>
+                        <td><%=post.getName()%>
+                        </td>
+                        <td>  <%=post.getDescription()%></td>
+                    </tr>
+                    <% } %>
+                </table>
             </div>
         </div>
     </div>
     <div class="row pt-3">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Сегодняшние кандидаты.
+                Кандидаты сегодня:
             </div>
             <div class="card-body">
+                <table class="table">
+                    <tbody>
+                    <thead>
+                    <tr>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Город</th>
+                    </tr>
+                    </thead>
+                    <% for (Candidate candidate : DbStore.instOf().findAllTodayCandidates()) { %>
+                    <tr>
+                        <td><%=candidate.getName()%>
+                        </td>
+                        <td><%=candidate.getCity().getName()%>
+                        </td>
+                    </tr>
+                    <% } %>
+                </table>
             </div>
         </div>
     </div>

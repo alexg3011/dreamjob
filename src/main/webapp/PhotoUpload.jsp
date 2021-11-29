@@ -32,6 +32,10 @@
     </div>
     <button type="submit" class="btn btn-default">Загрузить</button>
 </form>
-</div>
+<ul class="nav">
+    <li class="nav-item">
+        <a class="nav-link" href="<%=request.getContextPath()%>/index.jsp">На главную</a>
+    </li>
+</ul>
 </body>
 </html>
