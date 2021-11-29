@@ -2,7 +2,11 @@ package ru.job4j.dream.store;
 
 import org.junit.Test;
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
+
+import java.sql.Timestamp;
+import java.time.Instant;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -31,7 +35,7 @@ public class DbStoreTest {
     @Test
     public void whenCreateCandidate() {
         Store store = DbStore.instOf();
-        Candidate candidate = new Candidate(0, "Alex");
+        Candidate candidate = new Candidate(0, "Alex", new City(1, "Moscow"));
         store.saveCandidate(candidate);
         Candidate candInDb = store.findCandidateById(candidate.getId());
         assertThat(candInDb.getName(), is(candidate.getName()));
@@ -40,7 +44,7 @@ public class DbStoreTest {
     @Test
     public void whenDeleteCandidate() {
         Store store = DbStore.instOf();
-        Candidate candidate = new Candidate(0, "Petr");
+        Candidate candidate = new Candidate(0, "Petr", new City(1, "Moscow"));
         store.saveCandidate(candidate);
         store.deleteCandidate(candidate.getId());
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
@@ -50,7 +54,7 @@ public class DbStoreTest {
     @Test
     public void whenUpdateCandidate() {
         Store store = DbStore.instOf();
-        Candidate candidate = new Candidate(0, "Alex");
+        Candidate candidate = new Candidate(0, "Alex", new City(1, "Moscow"));
         store.saveCandidate(candidate);
         store.saveCandidate(candidate);
         Candidate candInPsql = store.findCandidateById(candidate.getId());

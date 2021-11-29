@@ -1,5 +1,6 @@
 package ru.job4j.dream.servlet;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
@@ -16,6 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class CandidateServletTest {
+    @Ignore
     @Test
     public void whenCreateCandidate() throws IOException, ServletException {
         HttpServletRequest req = mock(HttpServletRequest.class);
