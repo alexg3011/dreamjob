@@ -2,7 +2,7 @@ create table if not exists post (
                                     id serial primary key,
                                     name text,
                                     description text,
-                                    created timestamp current_timestamp
+                                    created timestamp
 );
 
 create table if not exists city (
@@ -14,7 +14,7 @@ create table if not exists candidate (
                                         id serial primary key,
                                         name text,
                                         city_id int references city(id),
-                                        created timestamp current_timestamp
+                                        created timestamp
     );
 
 create table if not exists users (

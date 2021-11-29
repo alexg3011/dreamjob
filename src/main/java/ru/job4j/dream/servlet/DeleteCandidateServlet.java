@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 
 public class DeleteCandidateServlet extends HttpServlet {
@@ -15,5 +16,7 @@ public class DeleteCandidateServlet extends HttpServlet {
             int id = Integer.valueOf(req.getParameter("id"));
             DbStore.instOf().removeCandidate(id);
             resp.sendRedirect(req.getContextPath() + "/candidates.do");
+            File file = new File("c:\\images\\" + id);
+            file.delete();
         }
 }
