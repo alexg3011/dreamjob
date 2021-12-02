@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 
 public class PostServlet extends HttpServlet {
@@ -26,7 +28,8 @@ public class PostServlet extends HttpServlet {
                     new Post(
                             Integer.valueOf(req.getParameter("id")),
                             req.getParameter("name"),
-                            req.getParameter("description")
+                            req.getParameter("description"),
+                            Timestamp.from(Instant.now())
                     )
             );
             resp.sendRedirect(req.getContextPath() + "/posts.do");

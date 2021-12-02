@@ -8,7 +8,6 @@ public class Candidate {
     private int id;
     private String name;
     private City city;
-    private int city_id;
     private Timestamp created;
 
     public Candidate() {
@@ -31,15 +30,6 @@ public class Candidate {
         this.name = name;
         this.city = city;
         this.created = created;
-    }
-
-
-    public int getCity_id() {
-        return city_id;
-    }
-
-    public void setCity_id(int city_id) {
-        this.city_id = city_id;
     }
 
     public Timestamp getCreated() {
@@ -97,7 +87,6 @@ public class Candidate {
         return "Candidate{"
                 + "id=" + id
                 + ", name='" + name + '\''
-                + ", city_id=" + city_id
                 + ", created=" + created
                 + '}';
     }

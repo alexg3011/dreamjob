@@ -12,8 +12,6 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,7 +19,7 @@ import java.util.Properties;
 
 
 public class DbStore implements Store {
-    private static final Logger log = Logger.getLogger(DbStore.class);
+    private static final Logger LOG = Logger.getLogger(DbStore.class);
 
     private final BasicDataSource pool = new BasicDataSource();
 
@@ -35,12 +33,12 @@ public class DbStore implements Store {
         )) {
             cfg.load(io);
         } catch (Exception e) {
-            log.error("Неверные параметры конфигурации БД", e);
+            LOG.error("Неверные параметры конфигурации БД", e);
         }
         try {
             Class.forName(cfg.getProperty("jdbc.driver"));
         } catch (Exception e) {
-            log.error("БД не запустилась", e);
+            LOG.error("БД не запустилась", e);
         }
         pool.setDriverClassName(cfg.getProperty("jdbc.driver"));
         pool.setUrl(cfg.getProperty("jdbc.url"));
@@ -73,7 +71,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
         return posts;
     }
@@ -96,7 +94,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
         return posts;
     }
@@ -120,7 +118,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
         return candidates;
     }
@@ -146,7 +144,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
         return candidates;
     }
@@ -155,11 +153,12 @@ public class DbStore implements Store {
     public Post savePost(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
-                     "INSERT INTO post(name, description) VALUES (?,?)",
+                     "INSERT INTO post(name, description, created) VALUES (?,?,?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, post.getName());
             ps.setString(2, post.getDescription());
+            ps.setTimestamp(3, post.getCreate());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -167,7 +166,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
         return post;
     }
@@ -189,7 +188,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
     }
 
@@ -208,7 +207,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
     }
 
@@ -228,7 +227,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
     }
 
@@ -247,7 +246,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
         return null;
     }
@@ -268,7 +267,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
         return null;
     }
@@ -281,7 +280,7 @@ public class DbStore implements Store {
             ps.setInt(1, id);
             ps.execute();
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
     }
 
@@ -293,7 +292,7 @@ public class DbStore implements Store {
             ps.setInt(1, id);
             ps.execute();
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
     }
 
@@ -305,7 +304,7 @@ public class DbStore implements Store {
             ps.setInt(1, id);
             ps.execute();
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
     }
 
@@ -317,7 +316,7 @@ public class DbStore implements Store {
             ps.setInt(1, id);
             ps.execute();
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
     }
 
@@ -337,7 +336,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
     }
 
@@ -349,7 +348,7 @@ public class DbStore implements Store {
             ps.setInt(1, user.getId());
             ps.execute();
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
     }
 
@@ -366,7 +365,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
         return null;
     }
@@ -384,7 +383,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
         return cities;
     }
@@ -402,7 +401,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
         return null;
     }
@@ -420,7 +419,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            log.error("Ошибка БД", e);
+            LOG.error("Ошибка БД", e);
         }
         return null;
     }
