@@ -16,7 +16,7 @@ public interface Store {
 
     Collection<Candidate> findAllTodayCandidates();
 
-    Post savePost(Post post);
+    void savePost(Post post);
 
     void saveCandidate(Candidate candidate);
 
@@ -24,13 +24,13 @@ public interface Store {
 
     Post findPostById(int id);
 
-    void deleteCandidate(int id);
-
-    void deletePost(int id);
-
     void saveUser(User user);
 
     void removeUser(User user);
+
+    void updatePost(Post post);
+
+    void updateCandidate(Candidate candidate);
 
     void removeCandidate(int id);
 
@@ -39,8 +39,6 @@ public interface Store {
     User findUserByEmail(String email);
 
     Collection<City> findAllCities();
-
-    City findCityById(int id);
 
     City findCityByName(String name);
 }

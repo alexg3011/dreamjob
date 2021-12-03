@@ -17,7 +17,7 @@ public class MainStore {
             System.out.println(candidate.toString());
         }
         System.out.println(store.findCandidateById(1).toString());
-        store.deleteCandidate(1);
-        store.deletePost(1);
+        store.removeCandidate(1);
+        store.removePost(1);
     }
 }

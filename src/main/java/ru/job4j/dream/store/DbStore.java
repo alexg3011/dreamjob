@@ -150,7 +150,7 @@ public class DbStore implements Store {
     }
 
     @Override
-    public Post savePost(Post post) {
+    public void savePost(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "INSERT INTO post(name, description, created) VALUES (?,?,?)",
@@ -168,7 +168,6 @@ public class DbStore implements Store {
         } catch (Exception e) {
             LOG.error("Ошибка БД", e);
         }
-        return post;
     }
 
     @Override
@@ -192,7 +191,8 @@ public class DbStore implements Store {
         }
     }
 
-    private void updatePost(Post post) {
+    @Override
+    public void updatePost(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "UPDATE post SET name = (?), description = (?) WHERE id = (?)")
@@ -211,7 +211,8 @@ public class DbStore implements Store {
         }
     }
 
-    private void updateCandidate(Candidate candidate) {
+    @Override
+    public void updateCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "UPDATE candidate SET name = (?), "
@@ -263,37 +264,13 @@ public class DbStore implements Store {
                             it.getString("name"),
                             new City(it.getInt("city_id"),
                                     it.getString("name")),
-                                    it.getTimestamp("created"));
+                            it.getTimestamp("created"));
                 }
             }
         } catch (Exception e) {
             LOG.error("Ошибка БД", e);
         }
         return null;
-    }
-
-    @Override
-    public void deleteCandidate(int id) {
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("DELETE FROM candidate WHERE id = ?")
-        ) {
-            ps.setInt(1, id);
-            ps.execute();
-        } catch (Exception e) {
-            LOG.error("Ошибка БД", e);
-        }
-    }
-
-    @Override
-    public void deletePost(int id) {
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("DELETE FROM post WHERE id = ?")
-        ) {
-            ps.setInt(1, id);
-            ps.execute();
-        } catch (Exception e) {
-            LOG.error("Ошибка БД", e);
-        }
     }
 
     @Override
@@ -386,24 +363,6 @@ public class DbStore implements Store {
             LOG.error("Ошибка БД", e);
         }
         return cities;
-    }
-
-    @Override
-    public City findCityById(int id) {
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM city WHERE id = ?")
-        ) {
-            ps.setInt(1, id);
-            try (ResultSet it = ps.executeQuery()) {
-                if (it.next()) {
-                    return new City(it.getInt("id"),
-                            it.getString("name"));
-                }
-            }
-        } catch (Exception e) {
-            LOG.error("Ошибка БД", e);
-        }
-        return null;
     }
 
     @Override

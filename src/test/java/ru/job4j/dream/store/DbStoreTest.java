@@ -23,11 +23,11 @@ public class DbStoreTest {
     }
 
     @Test
-    public void whenDeletePost() {
+    public void whenRemovePost() {
         Store store = DbStore.instOf();
         Post post = new Post(0, "Java Job");
         store.savePost(post);
-        store.deletePost(post.getId());
+        store.removePost(post.getId());
         Post postInDb = store.findPostById(post.getId());
         assertNull(postInDb);
     }
@@ -42,11 +42,11 @@ public class DbStoreTest {
     }
 
     @Test
-    public void whenDeleteCandidate() {
+    public void whenRemoveCandidate() {
         Store store = DbStore.instOf();
         Candidate candidate = new Candidate(0, "Petr", new City(1, "Moscow"));
         store.saveCandidate(candidate);
-        store.deleteCandidate(candidate.getId());
+        store.removeCandidate(candidate.getId());
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
         assertNull(candidateInDb);
     }
