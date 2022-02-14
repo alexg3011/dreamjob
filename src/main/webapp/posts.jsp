@@ -45,8 +45,9 @@
                             </td>
                            <td> <form action="<c:url value='/delete-post?id=${post.id}'/>" method="post" enctype="multipart/form-data">
                                 <button type="submit" class="btn btn-default">Удалить пост</button>
+                           </form>
                            </td>
-                        </form>
+
                         </tr>
 
                     </c:forEach>
