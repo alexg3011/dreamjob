@@ -6,17 +6,27 @@
 На главной странице отображаются вакансии и кандидаты за последние сутки.
 Так же присутствует регистрация и авторизация пользователя.
 Технологии: 
+<br>
 -Java EE Servlet API
+<br>
 -Tomcat
+<br>
 -JDBC
+<br>
 -PostgreSQL
+<br>
 -JS (jQuery, AJAX)
+<br>
 -JSP
--JSTL 
+<br>
+-JSTL
+<br>
 -HTML
+<br>
 -Log4j
+<br>
 -Maven
--Codecov.
+  <br>
 ![alt text](images/1.jpg)
 ![alt text](images/2.jpg)
 ![alt text](images/3.jpg)
@@ -24,5 +34,9 @@
 ![alt text](images/5.jpg)
 ![alt text](images/6.jpg)
 
-
+<h2>
+  Сборка:
+    </h2>
+    mvn install
+Сборка проекта с помощью Maven в WAR-архив для последующего развертывания в контейнере сервлетов (Apache Tomcat).
 
